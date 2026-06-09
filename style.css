@@ -1,0 +1,431 @@
+/* ── الأنماط العامة وإعادة التعيين ── */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+html { 
+    scroll-behavior: smooth; 
+}
+
+body {
+    background-color: #030307;
+    color: #ffffff;
+    font-family: 'Tajawal', sans-serif;
+    overflow-x: hidden;
+    padding-top: 110px;
+}
+
+/* ── غلاف صفحة انتقالي خفيف ── */
+.page-wrapper {
+    opacity: 1;
+    transition: opacity 0.25s ease-in-out;
+}
+.page-wrapper.fade-out {
+    opacity: 0;
+}
+
+/* ── القائمة العلوية NAVBAR ── */
+.navbar {
+    position: fixed;
+    top: 18px;
+    left: 5%;
+    width: 90%;
+    height: 72px;
+    background: rgba(11, 11, 20, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 204, 0, 0.22);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.navbar.scrolled {
+    top: 10px;
+    height: 60px;
+    box-shadow: 0 6px 30px rgba(0,0,0,0.7);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    padding: 0 36px;
+}
+
+.nav-side { 
+    display: flex; 
+    gap: 36px; 
+    width: 42%; 
+}
+.right-side { justify-content: flex-start; }
+.left-side  { justify-content: flex-end; }
+
+.nav-item {
+    color: #9999aa;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    transition: all 0.2s ease;
+    position: relative;
+    padding: 5px 0;
+    font-family: 'Tajawal', sans-serif;
+}
+
+.nav-item::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: #ffcc00;
+    transition: all 0.2s ease;
+    transform: translateX(-50%);
+}
+
+.nav-item:hover::after,
+.nav-item.active::after { 
+    width: 100%; 
+}
+
+.nav-item:hover,
+.nav-item.active {
+    color: #ffcc00;
+    text-shadow: 0 0 10px rgba(255,204,0,0.3);
+}
+
+/* ── الشعار LOGO ── */
+.nav-logo {
+    color: #7c3aed;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    filter: drop-shadow(0 0 8px rgba(124,58,237,0.5));
+    transition: transform 0.3s ease;
+}
+.nav-logo:hover {
+    transform: scale(1.05);
+}
+
+.scale-icon { 
+    width: 100%; 
+    height: 100%; 
+}
+
+/* ── الواجهة الترحيبية HERO ── */
+.hero {
+    text-align: center;
+    padding: 80px 20px 50px;
+    position: relative;
+}
+
+.main-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2.8rem, 6vw, 65px);
+    font-weight: 900;
+    color: #ffcc00;
+    filter: drop-shadow(0 0 20px rgba(255,204,0,0.15));
+    letter-spacing: 2px;
+    animation: fadeInSimple 0.6s ease both;
+}
+
+.title-separator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 14px 0;
+    animation: fadeInSimple 0.6s 0.1s ease both;
+}
+.title-separator span {
+    width: 110px;
+    height: 3px;
+    background: #ffcc00;
+    border-radius: 2px;
+}
+
+.subtitle {
+    font-size: clamp(0.95rem, 2vw, 20px);
+    color: #8888a0;
+    font-weight: 500;
+    letter-spacing: 1px;
+    animation: fadeInSimple 0.6s 0.2s ease both;
+}
+.subtitle .divider { 
+    color: #ffcc00; 
+    margin: 0 10px; 
+}
+
+@keyframes fadeInSimple {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── الحاويات والأقسام SECTIONS ── */
+.section-container {
+    max-width: 1240px;
+    margin: 0 auto 90px auto;
+    padding: 0 20px;
+}
+
+.section-header { 
+    margin-bottom: 38px; 
+}
+
+.section-title {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 26px;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-weight: 700;
+}
+
+.title-dot {
+    width: 6px;
+    height: 25px;
+    background: #ffcc00;
+    border-radius: 4px;
+    box-shadow: 0 0 8px rgba(255,204,0,0.4);
+    flex-shrink: 0;
+}
+
+/* ── نظام الشبكة GRIDS ── */
+.cards-grid { 
+    display: grid; 
+    gap: 28px; 
+}
+.cols-4 { grid-template-columns: repeat(4, 1fr); }
+.cols-3 { grid-template-columns: repeat(3, 1fr); }
+
+/* ── الكروت الموحدة CARD ITEM ── */
+.card-item {
+    background: #0b0b12;
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 16px;
+    padding: 34px 24px;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 14px 34px rgba(0,0,0,0.4);
+}
+
+.card-item:hover {
+    background: #12121f;
+    transform: translateY(-4px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.5), 0 0 15px rgba(255,204,0,0.1);
+    border-color: rgba(255,204,0,0.3);
+}
+
+/* ── كروت القيادات STAFF CARD ── */
+.badge-role {
+    display: inline-block;
+    color: #ffcc00;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    background: rgba(255,204,0,0.07);
+    padding: 4px 12px;
+    border-radius: 20px;
+    transition: all 0.2s ease;
+}
+.card-item:hover .badge-role { 
+    background: #ffcc00; 
+    color: #000; 
+}
+
+.staff-name { font-size: 23px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+.staff-desc { color: #7c7c93; font-size: 14px; margin-bottom: 26px; }
+
+/* أزرار الديسكورد */
+.discord-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    background: #05050b;
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    color: #ffcc00;
+    font-weight: 600;
+    border: 1px solid rgba(255,204,0,0.15);
+    transition: all 0.2s ease;
+    cursor: pointer;
+    user-select: none;
+}
+.discord-tag:hover,
+.card-item:hover .discord-tag {
+    background: rgba(255,204,0,0.1);
+    border-color: #ffcc00;
+}
+.discord-icon { 
+    width: 17px; 
+    height: 17px; 
+}
+
+/* ── كروت الخدمات SERVICE CARD ── */
+.service-icon {
+    color: #ffcc00;
+    width: 54px;
+    height: 54px;
+    margin: 0 auto 22px auto;
+    transition: transform 0.2s ease;
+}
+.service-icon svg { 
+    width: 100%; 
+    height: 100%; 
+}
+
+.service-title { font-size: 20px; font-weight: 700; margin-bottom: 14px; color: #fff; }
+.service-desc  { color: #808099; font-size: 14px; line-height: 1.7; }
+
+.action-hint {
+    margin-top: 22px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffcc00;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: all 0.2s ease;
+}
+.card-item:hover .action-hint { 
+    opacity: 1; 
+    transform: translateY(0); 
+}
+
+/* ── كروت وجداول الرتب RANKS ── */
+.rank-container {
+    background: #0b0b12;
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 18px;
+    margin-bottom: 42px;
+    overflow: hidden;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.4);
+}
+
+.vip-tier {
+    border: 1px solid rgba(255,204,0,0.22);
+    box-shadow: 0 14px 38px rgba(255,204,0,0.05);
+}
+
+.rank-container-title {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+    padding: 20px 28px;
+    background: #12121f;
+    border-right: 4px solid #ffcc00;
+}
+
+.rank-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 28px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.rank-row:last-child { border-bottom: none; }
+.rank-row:hover { 
+    background: #12121f; 
+    padding-right: 34px; 
+}
+
+.rank-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 25%;
+    border-right: 3px solid #ffcc00;
+    padding-right: 18px;
+}
+
+.rank-badge { font-size: 12px; color: #7c7c93; font-weight: 500; }
+.rank-name  { font-size: 18px; font-weight: 700; color: #fff; }
+.font-gold  { color: #ffcc00; text-shadow: 0 0 10px rgba(255,204,0,0.2); }
+
+.rank-duty {
+    width: 70%;
+    font-size: 14px;
+    color: #a0a0b5;
+    line-height: 1.75;
+    text-align: justify;
+}
+
+/* ── الإشعارات المصغرة TOAST ── */
+.toast-notification {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: rgba(11,11,20,0.97);
+    color: #ffcc00;
+    border: 1px solid rgba(255,204,0,0.3);
+    padding: 0.7rem 1.5rem;
+    border-radius: 12px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 0.88rem;
+    backdrop-filter: blur(12px);
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 9999;
+    white-space: nowrap;
+    direction: rtl;
+    pointer-events: none;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.6);
+}
+.toast-notification.toast-show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* ── أنميشن التمرير الطبيعي والمريح للعناصر ── */
+.fade-in-item {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+}
+.fade-in-item.visible { 
+    opacity: 1; 
+    transform: translateY(0); 
+}
+
+/* ── تذييل الصفحة FOOTER ── */
+.main-footer {
+    text-align: center;
+    padding: 36px 20px;
+    color: #444455;
+    font-size: 13px;
+    border-top: 1px solid rgba(255,255,255,0.03);
+    margin-top: 40px;
+}
+
+/* ── التجاوب مع الشاشات المتنوعة RESPONSIVE ── */
+@media (max-width: 1024px) {
+    .cols-4, .cols-3 { grid-template-columns: repeat(2, 1fr); }
+    .rank-row { flex-direction: column; align-items: flex-start; gap: 14px; }
+    .rank-meta { width: 100%; }
+    .rank-duty { width: 100%; }
+}
+@media (max-width: 680px) {
+    .cols-4, .cols-3 { grid-template-columns: 1fr; }
+    .navbar { width: 94%; left: 3%; }
+    .nav-side { gap: 14px; }
+    .main-title { font-size: 2.4rem; }
+}
+
+/* ── شريط التمرير الجانبي SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0b0b12; }
+::-webkit-scrollbar-thumb { background: #3a3010; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #ffcc00; }
